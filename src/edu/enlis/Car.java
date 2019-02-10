@@ -32,20 +32,22 @@ public class Car {
     public void start() {
         if (isGoes) {
             System.out.println("Car already goes.");
-        } else if (fuel < 0) {
+        } else if (fuel < fuelConsumption) {
                 System.out.println("Out of fuel!");
             } else {
-                System.out.println("Car started.");
-                isGoes = true;
-            }
+            System.out.println("Car started.");
+            System.out.println("Car is on the run...");
+            isGoes = true;
+        }
 
         long startTimeMillis = System.currentTimeMillis();
-        while (fuel > 0) {
+        while (fuel > fuelConsumption) {
             if (System.currentTimeMillis() - startTimeMillis == 1000) {
                 startTimeMillis = System.currentTimeMillis();
                 updateFuel(fuelConsumption);
             }
         }
+        if (fuel < 0) fuel = 0;
         stop();
     }
 
