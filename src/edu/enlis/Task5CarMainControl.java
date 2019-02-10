@@ -1,22 +1,22 @@
 package edu.enlis;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Task5CarMainControl {
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
         Lorry car = new Lorry();
+
         while (true) {
-            System.out.print("Введите одну из команд - (start | stop | isGoes | refuel | getFuelLevel): ");
-            String[] params = reader.readLine().trim().toLowerCase().split(" ");
-            if (params.length < 1 || params.length > 2) {
-                System.out.println("Неверная команда.");
+            System.out.print("Enter command - (start | stop | isGoes | refuel | getFuelLevel): ");
+            String[] input = scan.nextLine().trim().toLowerCase().split(" ");
+            if (input.length < 1 || input.length > 2) {
+                System.out.println("Incorrect command.");
                 continue;
             }
 
-            switch (params[0]) {
+            switch (input[0]) {
                 case "start":
                     car.start();
                     break;
@@ -27,7 +27,11 @@ public class Task5CarMainControl {
                     car.isGoes();
                     break;
                 case "refuel":
-                    car.refuel(Integer.parseInt(params[1]));
+                    if (input.length != 2) {
+                        System.out.println("You need to enter amount of fuel");
+                    } else {
+                        car.refuel(Integer.parseInt(input[1]));
+                    }
                     break;
                 case "getfuellevel":
                     car.getFuelLevel();
@@ -35,7 +39,7 @@ public class Task5CarMainControl {
                 case "exit":
                     return;
                 default:
-                    System.out.println("Неверная команда.");
+                    System.out.println("Incorrect command.");
                     break;
             }
         }
